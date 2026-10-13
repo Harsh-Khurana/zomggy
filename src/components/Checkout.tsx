@@ -21,7 +21,7 @@ export default function Checkout() {
 
   const { data, error, sendHttpRequest, clearData } = useHttp<{
     message?: string
-  } | null>("http://localhost:3000/orders", requestConfig, null)
+  } | null>("orders", requestConfig, null)
 
   const cartTotal = cartCtx.items.reduce(
     (totalPrice, item) => totalPrice + +item.price * item.quantity,

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+
 export async function sendRequest(url: string, config: RequestInit) {
   const resp = await fetch(url, config)
 
@@ -12,7 +14,7 @@ export async function sendRequest(url: string, config: RequestInit) {
   return data
 }
 
-export default function useHttp<T>(url: string, config: RequestInit, initialValue: T) {
+export default function useHttp<T>(path: string, config: RequestInit, initialValue: T) {
   const [data, setData] = useState(initialValue)
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -26,7 +28,7 @@ export default function useHttp<T>(url: string, config: RequestInit, initialValu
       setError("")
       setIsLoading(true)
       try {
-        const resp = await fetch(url, { ...config, body: bodyData })
+        const resp = await fetch(`${API_BASE_URL}/${path}`, { ...config, body: bodyData })
 
         const data = await resp.json()
 
@@ -40,7 +42,7 @@ export default function useHttp<T>(url: string, config: RequestInit, initialValu
       }
       setIsLoading(false)
     },
-    [config, url],
+    [config, path],
   )
 
   useEffect(() => {

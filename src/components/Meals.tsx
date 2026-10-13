@@ -13,11 +13,7 @@ export type Meal = {
 const requestConfig = {}
 
 export default function Meals() {
-  const {
-    data: meals,
-    isLoading,
-    error,
-  } = useHttp<Meal[]>("http://localhost:3000/meals", requestConfig, [])
+  const { data: meals, isLoading, error } = useHttp<Meal[]>("meals", requestConfig, [])
 
   if (isLoading) {
     return <p className="center">Fetching meals...</p>

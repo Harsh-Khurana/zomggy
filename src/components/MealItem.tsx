@@ -4,6 +4,8 @@ import type { Meal } from "./Meals"
 import Button from "./UI/Button"
 import { CartContext } from "../store/CartContext"
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+
 interface MealItemProps {
   meal: Meal
 }
@@ -18,7 +20,7 @@ export default function MealItem({ meal }: MealItemProps) {
   return (
     <li className="meal-item">
       <article>
-        <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
+        <img src={`${API_BASE_URL}/${meal.image}`} alt={meal.name} />
         <div>
           <h3>{meal.name}</h3>
           <p className="meal-item-price">{currencyFormatter.format(+meal.price)}</p>
